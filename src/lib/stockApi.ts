@@ -22,11 +22,15 @@ function assetUrl(path: string): string {
   return `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
 }
 
-export async function loadStockList(): Promise<StockInfo[]> {
-  if (stockCache) return stockCache
-  const res = await fetch(assetUrl('stocks.json'))
+export async function loadStockList(force = false): Promise<StockInfo[]> {
+  if (!force && stockCache) return stockCache
+  const res = await fetch(assetUrl(`stocks.json?t=${Date.now()}`), { cache: 'no-store' })
   if (!res.ok) throw new Error('종목 목록을 불러올 수 없습니다.')
-  stockCache = (await res.json()) as StockInfo[]
+  const data = (await res.json()) as StockInfo[]
+  if (!Array.isArray(data) || data.length === 0) {
+    throw new Error('종목 목록이 비어 있습니다. GitHub Actions 배포를 확인해 주세요.')
+  }
+  stockCache = data
   return stockCache
 }
 
@@ -34,7 +38,7 @@ export async function loadQuotes(force = false): Promise<QuotesFile> {
   const stale = Date.now() - quotesLoadedAt > QUOTES_TTL_MS
   if (!force && quotesCache && !stale) return quotesCache
 
-  const res = await fetch(assetUrl('quotes.json'))
+  const res = await fetch(assetUrl(`quotes.json?t=${Date.now()}`), { cache: 'no-store' })
   if (!res.ok) {
     throw new Error('시세 데이터(quotes.json)를 불러올 수 없습니다. GitHub Actions 배포를 확인해 주세요.')
   }
@@ -62,17 +66,26 @@ export function resolveStock(input: string, stocks: StockInfo[]): StockInfo | nu
   if (parenCode) {
     const byParen = stocks.find((s) => s.code === parenCode)
     if (byParen) return byParen
+    return { name: trimmed.replace(/\(\d{6}\)/, '').trim() || parenCode, code: parenCode, market: 'ETF' }
   }
 
-  const byCode = stocks.find((s) => s.code === trimmed || s.code === trimmed.replace(/\D/g, '').slice(-6))
-  if (byCode) return byCode
+  const digits = trimmed.replace(/\D/g, '')
+  const codeCandidate = digits.length >= 6 ? digits.slice(-6) : trimmed
+  if (/^\d{6}$/.test(codeCandidate)) {
+    const byCode = stocks.find((s) => s.code === codeCandidate)
+    if (byCode) return byCode
+    return { name: codeCandidate, code: codeCandidate, market: 'UNKNOWN' }
+  }
 
   const nameOnly = trimmed.replace(/\(\d{6}\)/, '').trim()
   const lower = nameOnly.toLowerCase()
   const exactName = stocks.find((s) => s.name.toLowerCase() === lower)
   if (exactName) return exactName
 
-  return searchStocks(nameOnly || trimmed, stocks, 1)[0] ?? null
+  const partial = searchStocks(nameOnly || trimmed, stocks, 1)[0]
+  if (partial) return partial
+
+  return null
 }
 
 function formatDate(d: Date): string {

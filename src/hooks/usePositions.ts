@@ -67,10 +67,12 @@ export function usePositions() {
     setAdding(true)
     setError(null)
     try {
-      const stocks = await loadStockList()
+      const stocks = await loadStockList(true)
       const matched = resolveStock(stockInput, stocks)
       if (!matched) {
-        throw new Error('종목을 찾을 수 없습니다. 종목명 또는 코드를 확인해 주세요.')
+        throw new Error(
+          `종목을 찾을 수 없습니다. (목록 ${stocks.length}개 로드됨) 코드 6자리(예: 456600)로 입력해 보세요.`,
+        )
       }
 
       const entryPrice = await fetchCloseOnDate(matched.code, entryDate)

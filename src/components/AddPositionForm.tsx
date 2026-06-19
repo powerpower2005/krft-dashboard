@@ -17,7 +17,7 @@ export function AddPositionForm({ onAdd, adding }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    void loadStockList()
+    void loadStockList(true)
       .then(setStocks)
       .catch(() => setStocks([]))
   }, [])
