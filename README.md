@@ -12,12 +12,8 @@
 ### 1단계: GitHub에 push
 
 ```bash
-cd C:\Users\psgpk\kr-stock-compare
-git remote add origin https://github.com/powerpower2005/krft-dashboard.git
-git add .
-git commit -m "Initial commit"
-git branch -M main
-git push -u origin main
+git clone https://github.com/powerpower2005/krft-dashboard.git
+cd krft-dashboard
 ```
 
 ### 2단계: GitHub 설정 (최초 1회)
