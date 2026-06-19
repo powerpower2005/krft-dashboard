@@ -18,6 +18,8 @@ function App() {
     addPosition,
     removePosition,
     refreshReturns,
+    reloadSeed,
+    seedLoading,
   } = usePositions()
 
   usePricePolling(refreshReturns, positions.length > 0)
@@ -49,10 +51,12 @@ function App() {
       <AddPositionForm onAdd={handleAdd} adding={adding} />
       <PositionTable
         rows={returns}
-        loading={loading}
+        loading={loading || seedLoading}
         lastUpdated={lastUpdated}
         onRemove={removePosition}
         onRefresh={() => void refreshReturns()}
+        onReloadSeed={() => void reloadSeed()}
+        seedLoading={seedLoading}
       />
 
       <footer className="footer muted">

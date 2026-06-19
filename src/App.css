@@ -188,6 +188,12 @@ input:focus {
   opacity: 0.5;
 }
 
+.btn-ghost.active {
+  border-color: rgba(56, 189, 248, 0.5);
+  background: rgba(56, 189, 248, 0.12);
+  color: #7dd3fc;
+}
+
 .table-header {
   display: flex;
   justify-content: space-between;

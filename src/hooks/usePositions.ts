@@ -5,12 +5,14 @@ import {
   loadUsQuotes,
   resolveUsStock,
 } from '../lib/usStockApi'
+import { fetchSeedFile, seedToPositions } from '../lib/seedPositions'
 import { createId, loadPositions, savePositions } from '../lib/storage'
 import type { MarketRegion, Position, PositionWithReturns } from '../types'
 import { US_POPULAR } from '../types'
 
 export function usePositions() {
-  const [positions, setPositions] = useState<Position[]>(() => loadPositions())
+  const [positions, setPositions] = useState<Position[]>([])
+  const [seedLoading, setSeedLoading] = useState(true)
   const [returns, setReturns] = useState<PositionWithReturns[]>([])
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
   const [quotesTradeDate, setQuotesTradeDate] = useState<string | null>(null)
@@ -18,9 +20,28 @@ export function usePositions() {
   const [adding, setAdding] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  const applySeed = useCallback(async () => {
+    setSeedLoading(true)
+    setError(null)
+    try {
+      const seed = await fetchSeedFile()
+      setPositions(seedToPositions(seed))
+    } catch (err) {
+      setError(err instanceof Error ? err.message : '시드 불러오기에 실패했습니다.')
+      setPositions(loadPositions())
+    } finally {
+      setSeedLoading(false)
+    }
+  }, [])
+
   useEffect(() => {
+    void applySeed()
+  }, [applySeed])
+
+  useEffect(() => {
+    if (seedLoading) return
     savePositions(positions)
-  }, [positions])
+  }, [positions, seedLoading])
 
   const refreshReturns = useCallback(async () => {
     if (positions.length === 0) {
@@ -84,6 +105,15 @@ export function usePositions() {
       setLoading(false)
     }
   }, [positions])
+
+  useEffect(() => {
+    if (!seedLoading && positions.length > 0) {
+      void refreshReturns()
+    } else if (!seedLoading && positions.length === 0) {
+      setReturns([])
+      setLastUpdated(null)
+    }
+  }, [seedLoading, positions, refreshReturns])
 
   const addPosition = async (
     region: MarketRegion,
@@ -157,5 +187,7 @@ export function usePositions() {
     addPosition,
     removePosition,
     refreshReturns,
+    reloadSeed: applySeed,
+    seedLoading,
   }
 }

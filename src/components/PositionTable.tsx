@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react'
 import type { PositionWithReturns } from '../types'
 
 type Props = {
@@ -6,6 +7,8 @@ type Props = {
   lastUpdated: Date | null
   onRemove: (id: string) => void
   onRefresh: () => void
+  onReloadSeed: () => void
+  seedLoading: boolean
 }
 
 function formatPrice(n: number | null, currency: 'KRW' | 'USD'): string {
@@ -29,12 +32,39 @@ function pctClass(n: number | null): string {
   return ''
 }
 
-export function PositionTable({ rows, loading, lastUpdated, onRemove, onRefresh }: Props) {
+function compareReturn(a: PositionWithReturns, b: PositionWithReturns): number {
+  const aPct = a.returnPct
+  const bPct = b.returnPct
+  if (aPct == null && bPct == null) return 0
+  if (aPct == null) return 1
+  if (bPct == null) return -1
+  return bPct - aPct
+}
+
+export function PositionTable({
+  rows,
+  loading,
+  lastUpdated,
+  onRemove,
+  onRefresh,
+  onReloadSeed,
+  seedLoading,
+}: Props) {
+  const [sortByReturn, setSortByReturn] = useState(false)
+
+  const displayRows = useMemo(() => {
+    if (!sortByReturn) return rows
+    return [...rows].sort(compareReturn)
+  }, [rows, sortByReturn])
+
   if (rows.length === 0) {
     return (
       <div className="card empty-state">
         <p>아직 등록된 종목이 없습니다.</p>
         <p className="muted">닉네임, 종목명, 기준일을 입력해 추가해 보세요.</p>
+        <button type="button" className="btn-ghost" onClick={onReloadSeed} disabled={seedLoading}>
+          {seedLoading ? '시드 불러오는 중…' : '시드 불러오기'}
+        </button>
       </div>
     )
   }
@@ -50,7 +80,19 @@ export function PositionTable({ rows, loading, lastUpdated, onRemove, onRefresh 
               {rows[0]?.quotesTradeDate ?? '—'} · 10분마다 quotes.json 재조회
             </span>
           )}
-          <button type="button" className="btn-ghost" onClick={onRefresh} disabled={loading}>
+          <button
+            type="button"
+            className={`btn-ghost${sortByReturn ? ' active' : ''}`}
+            onClick={() => setSortByReturn((v) => !v)}
+            disabled={loading || seedLoading}
+            aria-pressed={sortByReturn}
+          >
+            {sortByReturn ? '수익률순 ✓' : '수익률순'}
+          </button>
+          <button type="button" className="btn-ghost" onClick={onReloadSeed} disabled={seedLoading || loading}>
+            {seedLoading ? '시드 적용 중…' : '시드 불러오기'}
+          </button>
+          <button type="button" className="btn-ghost" onClick={onRefresh} disabled={loading || seedLoading}>
             {loading ? '갱신 중…' : '지금 갱신'}
           </button>
         </div>
@@ -69,7 +111,7 @@ export function PositionTable({ rows, loading, lastUpdated, onRemove, onRefresh 
             </tr>
           </thead>
           <tbody>
-            {rows.map((row) => (
+            {displayRows.map((row) => (
               <tr key={row.id}>
                 <td className="nickname">{row.nickname}</td>
                 <td>

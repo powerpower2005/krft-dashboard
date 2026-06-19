@@ -1,0 +1,326 @@
+{
+  "version": 1,
+  "entryDate": "2026-05-07",
+  "positions": [
+    {
+      "nickname": "ㅊㅅㅇ1",
+      "displayName": "차시우",
+      "region": "KR",
+      "stockName": "TIME 글로벌AI인공지능액티브",
+      "stockCode": "456600",
+      "entryDate": "2026-05-07",
+      "entryPrice": 60425.0,
+      "currency": "KRW"
+    },
+    {
+      "nickname": "ㅊㅎㅈ1",
+      "displayName": "최황지",
+      "region": "KR",
+      "stockName": "KODEX 방산TOP10",
+      "stockCode": "0080G0",
+      "entryDate": "2026-05-07",
+      "entryPrice": 14365.0,
+      "currency": "KRW"
+    },
+    {
+      "nickname": "ㅅㅂㅅ1",
+      "displayName": "서범석",
+      "region": "US",
+      "stockName": "VanEck Semiconductor ETF",
+      "stockCode": "SMH",
+      "entryDate": "2026-05-07",
+      "entryPrice": 540.1,
+      "currency": "USD"
+    },
+    {
+      "nickname": "ㅂㅇㅅ",
+      "displayName": "백은솔",
+      "region": "US",
+      "stockName": "Global X Data Center & Digital Infrastructure ETF",
+      "stockCode": "DTCR",
+      "entryDate": "2026-05-07",
+      "entryPrice": 29.78,
+      "currency": "USD"
+    },
+    {
+      "nickname": "ㅅㅇㅈ",
+      "displayName": "송영진",
+      "region": "US",
+      "stockName": "VanEck Uranium and Nuclear ETF",
+      "stockCode": "NLR",
+      "entryDate": "2026-05-07",
+      "entryPrice": 144.14,
+      "currency": "USD"
+    },
+    {
+      "nickname": "ㅇㅈㅇ",
+      "displayName": "이지은",
+      "region": "US",
+      "stockName": "First Trust NASDAQ Cybersecurity ETF",
+      "stockCode": "CIBR",
+      "entryDate": "2026-05-07",
+      "entryPrice": 73.14,
+      "currency": "USD"
+    },
+    {
+      "nickname": "ㅈㄷㄱ",
+      "displayName": "조대규",
+      "region": "US",
+      "stockName": "Vanguard Energy ETF",
+      "stockCode": "VDE",
+      "entryDate": "2026-05-07",
+      "entryPrice": 159.31,
+      "currency": "USD"
+    },
+    {
+      "nickname": "ㄱㅈㄱ",
+      "displayName": "김진경",
+      "region": "KR",
+      "stockName": "ACE KRX금현물",
+      "stockCode": "411060",
+      "entryDate": "2026-05-07",
+      "entryPrice": 30845.0,
+      "currency": "KRW"
+    },
+    {
+      "nickname": "ㅎㅇㄱ1",
+      "displayName": "홍영근",
+      "region": "US",
+      "stockName": "iShares Biotechnology ETF",
+      "stockCode": "IBB",
+      "entryDate": "2026-05-07",
+      "entryPrice": 170.1,
+      "currency": "USD"
+    },
+    {
+      "nickname": "ㅂㅅㅎ1",
+      "displayName": "박승훈",
+      "region": "US",
+      "stockName": "First Trust NASDAQ Cybersecurity ETF",
+      "stockCode": "CIBR",
+      "entryDate": "2026-05-07",
+      "entryPrice": 73.14,
+      "currency": "USD"
+    },
+    {
+      "nickname": "ㅎㅊㅇ1",
+      "displayName": "허채윤",
+      "region": "KR",
+      "stockName": "KODEX 미국AI광통신네트워크",
+      "stockCode": "0173Y0",
+      "entryDate": "2026-05-07",
+      "entryPrice": 13785.0,
+      "currency": "KRW"
+    },
+    {
+      "nickname": "ㅅㅎㅎ",
+      "displayName": "심현희",
+      "region": "KR",
+      "stockName": "HANARO Fn K-푸드",
+      "stockCode": "438900",
+      "entryDate": "2026-05-07",
+      "entryPrice": 11920.0,
+      "currency": "KRW"
+    },
+    {
+      "nickname": "ㅇㅅㅎ",
+      "displayName": "임성하",
+      "region": "US",
+      "stockName": "Fidelity Wise Origin Bitcoin Fund",
+      "stockCode": "FBTC",
+      "entryDate": "2026-05-07",
+      "entryPrice": 69.8,
+      "currency": "USD"
+    },
+    {
+      "nickname": "ㅇㅎㄱㄹ",
+      "displayName": "이한가람",
+      "region": "KR",
+      "stockName": "PLUS 고배당주",
+      "stockCode": "161510",
+      "entryDate": "2026-05-07",
+      "entryPrice": 27705.0,
+      "currency": "KRW"
+    },
+    {
+      "nickname": "ㄱㅂㄱ",
+      "displayName": "김부갑",
+      "region": "KR",
+      "stockName": "KODEX 코리아소버린AI",
+      "stockCode": "0115E0",
+      "entryDate": "2026-05-07",
+      "entryPrice": 16060.0,
+      "currency": "KRW"
+    },
+    {
+      "nickname": "ㅇㅅㅇ1",
+      "displayName": "이새얀",
+      "region": "KR",
+      "stockName": "KODEX 미국금융테크액티브",
+      "stockCode": "0028X0",
+      "entryDate": "2026-05-07",
+      "entryPrice": 11005.0,
+      "currency": "KRW"
+    },
+    {
+      "nickname": "ㅁㅈㅎ1",
+      "displayName": "민지혜",
+      "region": "KR",
+      "stockName": "KIWOOM 코리아고배당",
+      "stockCode": "104530",
+      "entryDate": "2026-05-07",
+      "entryPrice": 21307.0,
+      "currency": "KRW"
+    },
+    {
+      "nickname": "ㅇㅈㅎ1",
+      "displayName": "유정현",
+      "region": "KR",
+      "stockName": "SOL AI반도체TOP2플러스",
+      "stockCode": "0167A0",
+      "entryDate": "2026-05-07",
+      "entryPrice": 17100.0,
+      "currency": "KRW"
+    },
+    {
+      "nickname": "ㅊㅅㅇ2",
+      "displayName": "차시우",
+      "region": "KR",
+      "stockName": "SK하이닉스",
+      "stockCode": "000660",
+      "entryDate": "2026-05-07",
+      "entryPrice": 1654000.0,
+      "currency": "KRW"
+    },
+    {
+      "nickname": "ㅊㅎㅈ2",
+      "displayName": "최황지",
+      "region": "KR",
+      "stockName": "SK하이닉스",
+      "stockCode": "000660",
+      "entryDate": "2026-05-07",
+      "entryPrice": 1654000.0,
+      "currency": "KRW"
+    },
+    {
+      "nickname": "ㅇㅅㅇ2",
+      "displayName": "이새얀",
+      "region": "KR",
+      "stockName": "한화에어로스페이스",
+      "stockCode": "012450",
+      "entryDate": "2026-05-07",
+      "entryPrice": 1317000.0,
+      "currency": "KRW"
+    },
+    {
+      "nickname": "ㅎㅇㄱ2",
+      "displayName": "홍영근",
+      "region": "KR",
+      "stockName": "HD현대일렉트릭",
+      "stockCode": "267260",
+      "entryDate": "2026-05-07",
+      "entryPrice": 1420000.0,
+      "currency": "KRW"
+    },
+    {
+      "nickname": "ㅎㅊㅇ2",
+      "displayName": "허채윤",
+      "region": "KR",
+      "stockName": "삼성전자",
+      "stockCode": "005930",
+      "entryDate": "2026-05-07",
+      "entryPrice": 271500.0,
+      "currency": "KRW"
+    },
+    {
+      "nickname": "ㅁㅈㅎ2",
+      "displayName": "민지혜",
+      "region": "KR",
+      "stockName": "HD현대중공업",
+      "stockCode": "329180",
+      "entryDate": "2026-05-07",
+      "entryPrice": 693000.0,
+      "currency": "KRW"
+    },
+    {
+      "nickname": "ㄱㅅㅁ",
+      "displayName": "김상민",
+      "region": "KR",
+      "stockName": "한미반도체",
+      "stockCode": "042700",
+      "entryDate": "2026-05-07",
+      "entryPrice": 393000.0,
+      "currency": "KRW"
+    },
+    {
+      "nickname": "ㅅㅂㅅ2",
+      "displayName": "서범석",
+      "region": "KR",
+      "stockName": "한화",
+      "stockCode": "000880",
+      "entryDate": "2026-05-07",
+      "entryPrice": 139500.0,
+      "currency": "KRW"
+    },
+    {
+      "nickname": "ㄱㅊㅁ",
+      "displayName": "강창모",
+      "region": "KR",
+      "stockName": "SK하이닉스",
+      "stockCode": "000660",
+      "entryDate": "2026-05-07",
+      "entryPrice": 1654000.0,
+      "currency": "KRW"
+    },
+    {
+      "nickname": "ㅇㅅㅅ",
+      "displayName": "이상신",
+      "region": "KR",
+      "stockName": "삼성전기",
+      "stockCode": "009150",
+      "entryDate": "2026-05-07",
+      "entryPrice": 917000.0,
+      "currency": "KRW"
+    },
+    {
+      "nickname": "ㅇㅌㅎ",
+      "displayName": "임태호",
+      "region": "KR",
+      "stockName": "한국전력",
+      "stockCode": "015760",
+      "entryDate": "2026-05-07",
+      "entryPrice": 44700.0,
+      "currency": "KRW"
+    },
+    {
+      "nickname": "ㅂㅎㄱ",
+      "displayName": "박형근",
+      "region": "KR",
+      "stockName": "삼성전자",
+      "stockCode": "005930",
+      "entryDate": "2026-05-07",
+      "entryPrice": 271500.0,
+      "currency": "KRW"
+    },
+    {
+      "nickname": "ㅂㅅㅎ2",
+      "displayName": "박승훈",
+      "region": "KR",
+      "stockName": "크래프톤",
+      "stockCode": "259960",
+      "entryDate": "2026-05-07",
+      "entryPrice": 270000.0,
+      "currency": "KRW"
+    },
+    {
+      "nickname": "ㅇㅈㅎ2",
+      "displayName": "유정현",
+      "region": "KR",
+      "stockName": "SK하이닉스",
+      "stockCode": "000660",
+      "entryDate": "2026-05-07",
+      "entryPrice": 1654000.0,
+      "currency": "KRW"
+    }
+  ]
+}
