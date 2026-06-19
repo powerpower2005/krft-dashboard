@@ -28,6 +28,13 @@ export const POLL_INTERVAL_MS = 10 * 60 * 1000
 
 export const US_POPULAR: StockInfo[] = [
   { name: 'VanEck Semiconductor ETF', code: 'SMH', market: 'US-ETF' },
+  { name: 'Global X Data Center & Digital Infrastructure ETF', code: 'DTCR', market: 'US-ETF' },
+  { name: 'VanEck Uranium and Nuclear ETF', code: 'NLR', market: 'US-ETF' },
+  { name: 'First Trust NASDAQ Cybersecurity ETF', code: 'CIBR', market: 'US-ETF' },
+  { name: 'Vanguard Energy ETF', code: 'VDE', market: 'US-ETF' },
+  { name: 'iShares Biotechnology ETF', code: 'IBB', market: 'US-ETF' },
+  { name: 'Fidelity Wise Origin Bitcoin Fund', code: 'FBTC', market: 'US-ETF' },
+  { name: 'iShares U.S. Medical Devices ETF', code: 'IHI', market: 'US-ETF' },
   { name: 'SPDR S&P 500 ETF', code: 'SPY', market: 'US-ETF' },
   { name: 'Invesco QQQ Trust', code: 'QQQ', market: 'US-ETF' },
   { name: 'Apple Inc.', code: 'AAPL', market: 'US' },
