@@ -58,26 +58,32 @@ export function searchStocks(query: string, stocks: StockInfo[], limit = 8): Sto
     .slice(0, limit)
 }
 
+function extractCode(input: string): string | null {
+  const paren = input.match(/\(([0-9A-Za-z]{6})\)/)?.[1]
+  if (paren) return paren.toUpperCase()
+
+  const token = input.trim().toUpperCase()
+  if (/^[0-9A-Z]{6}$/.test(token)) return token
+
+  const alnum = input.replace(/[^0-9A-Za-z]/g, '').toUpperCase()
+  if (/^[0-9A-Z]{6}$/.test(alnum)) return alnum
+
+  if (/^\d{1,6}$/.test(token)) return token.padStart(6, '0')
+  return null
+}
+
 export function resolveStock(input: string, stocks: StockInfo[]): StockInfo | null {
   const trimmed = input.trim()
   if (!trimmed) return null
 
-  const parenCode = trimmed.match(/\((\d{6})\)/)?.[1]
-  if (parenCode) {
-    const byParen = stocks.find((s) => s.code === parenCode)
-    if (byParen) return byParen
-    return { name: trimmed.replace(/\(\d{6}\)/, '').trim() || parenCode, code: parenCode, market: 'ETF' }
-  }
-
-  const digits = trimmed.replace(/\D/g, '')
-  const codeCandidate = digits.length >= 6 ? digits.slice(-6) : trimmed
-  if (/^\d{6}$/.test(codeCandidate)) {
-    const byCode = stocks.find((s) => s.code === codeCandidate)
+  const extracted = extractCode(trimmed)
+  if (extracted) {
+    const byCode = stocks.find((s) => s.code.toUpperCase() === extracted)
     if (byCode) return byCode
-    return { name: codeCandidate, code: codeCandidate, market: 'UNKNOWN' }
+    return { name: trimmed.replace(/\([0-9A-Za-z]{6}\)/, '').trim() || extracted, code: extracted, market: 'ETF' }
   }
 
-  const nameOnly = trimmed.replace(/\(\d{6}\)/, '').trim()
+  const nameOnly = trimmed.replace(/\([0-9A-Za-z]{6}\)/, '').trim()
   const lower = nameOnly.toLowerCase()
   const exactName = stocks.find((s) => s.name.toLowerCase() === lower)
   if (exactName) return exactName

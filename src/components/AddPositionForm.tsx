@@ -76,7 +76,7 @@ export function AddPositionForm({ onAdd, adding }: Props) {
             종목명 / 코드
             <input
               type="text"
-              placeholder="예: 삼성전자 또는 005930"
+              placeholder="예: 삼성전자, 005930, 0080G0"
               value={stockInput}
               onChange={(e) => handleStockChange(e.target.value)}
               onFocus={() => stockInput && setShowSuggestions(true)}

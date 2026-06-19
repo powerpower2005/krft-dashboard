@@ -47,9 +47,11 @@ def latest_trading_ymd(max_lookback: int = 14) -> str:
 
 
 def _normalize_code(raw: str) -> str | None:
-    code = str(raw).strip().zfill(6)
-    if len(code) == 6 and code.isdigit():
+    code = str(raw).strip().upper()
+    if len(code) == 6 and code.isalnum():
         return code
+    if code.isdigit() and len(code) <= 6:
+        return code.zfill(6)
     return None
 
 
