@@ -1,0 +1,49 @@
+name: Build app
+description: Refresh pykrx data, install Node deps, and build the Vite app.
+
+inputs:
+  base-path:
+    description: Vite base path (e.g. /krft-dashboard/)
+    required: false
+    default: /krft-dashboard/
+  refresh-stocks:
+    description: Refresh public/stocks.json via pykrx
+    required: false
+    default: 'true'
+  refresh-quotes:
+    description: Refresh public/quotes.json via pykrx
+    required: false
+    default: 'true'
+
+runs:
+  using: composite
+  steps:
+    - uses: ./.github/actions/setup-python-data
+      with:
+        refresh-stocks: ${{ inputs.refresh-stocks }}
+        refresh-quotes: ${{ inputs.refresh-quotes }}
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+        cache: npm
+
+    - name: Install Node dependencies
+      shell: bash
+      run: npm ci
+
+    - name: Build frontend
+      shell: bash
+      run: npm run build:app
+      env:
+        VITE_BASE_PATH: ${{ inputs.base-path }}
+
+    - name: Write build summary
+      shell: bash
+      run: |
+        {
+          echo "### Build"
+          echo "- Base path: \`${{ inputs.base-path }}\`"
+          echo "- Data source: pykrx / FinanceDataReader (GitHub Actions)"
+          echo "- Dist size: \$(du -sh dist | cut -f1)"
+        } >> "$GITHUB_STEP_SUMMARY"

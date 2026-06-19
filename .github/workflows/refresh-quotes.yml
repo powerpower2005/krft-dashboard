@@ -1,0 +1,62 @@
+name: Refresh quotes.json
+
+on:
+  schedule:
+    # Every 10 minutes during KST market hours (09:00-16:00 KST ~= 00:00-07:00 UTC, Mon-Fri)
+    - cron: '*/10 0-7 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      auto_commit:
+        description: Commit and push if quotes.json changed
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-quotes
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    name: Refresh quotes (pykrx)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup-python-data
+        with:
+          refresh-stocks: 'false'
+          refresh-quotes: 'true'
+
+      - name: Check for changes
+        id: diff
+        run: |
+          if git diff --quiet public/quotes.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            TRADE_DATE=$(python -c "import json; print(json.load(open('public/quotes.json'))['tradeDate'])")
+            echo "trade_date=$TRADE_DATE" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit and push
+        if: >-
+          steps.diff.outputs.changed == 'true' &&
+          (github.event_name == 'schedule' || inputs.auto_commit == true)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/quotes.json
+          git commit -m "chore: refresh quotes.json via pykrx (${{ steps.diff.outputs.trade_date }})"
+          git push
+
+      - name: Summary
+        run: |
+          {
+            echo "### Refresh quotes.json"
+            echo "- Changed: \`${{ steps.diff.outputs.changed }}\`"
+            echo "- Trade date: \`${{ steps.diff.outputs.trade_date }}\`"
+            echo "- Source: pykrx (KRX/Naver)"
+          } >> "$GITHUB_STEP_SUMMARY"
