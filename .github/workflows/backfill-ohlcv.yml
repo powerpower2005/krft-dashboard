@@ -32,7 +32,7 @@ jobs:
         with:
           refresh-stocks: 'true'
           refresh-quotes: 'false'
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: stocks-json
           path: public/stocks.json
@@ -71,7 +71,7 @@ jobs:
             --batches ${{ inputs.batches || 8 }} \
             --years ${{ inputs.years || 10 }}
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: ohlcv-batch-${{ matrix.batch }}
           path: public/ohlcv/
