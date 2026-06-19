@@ -46,24 +46,51 @@ def latest_trading_ymd(max_lookback: int = 14) -> str:
     die("Could not find a recent trading day from KRX/pykrx")
 
 
-def load_listing_rows() -> list[dict[str, str]]:
-    """Load KRX listing via FinanceDataReader, fallback to pykrx."""
-    try:
-        import FinanceDataReader as fdr
+def _normalize_code(raw: str) -> str | None:
+    code = str(raw).strip().zfill(6)
+    if len(code) == 6 and code.isdigit():
+        return code
+    return None
 
-        df = fdr.StockListing("KRX")
-        rows: list[dict[str, str]] = []
-        for _, row in df.iterrows():
-            code = str(row["Code"]).zfill(6)
-            if len(code) != 6 or not code.isdigit():
-                continue
-            rows.append(
-                {
-                    "name": str(row["Name"]),
-                    "code": code,
-                    "market": str(row["Market"]),
-                }
-            )
+
+def _load_fdr_stock_rows() -> list[dict[str, str]]:
+    import FinanceDataReader as fdr
+
+    df = fdr.StockListing("KRX")
+    rows: list[dict[str, str]] = []
+    for _, row in df.iterrows():
+        code = _normalize_code(row["Code"])
+        if not code:
+            continue
+        rows.append({"name": str(row["Name"]), "code": code, "market": str(row["Market"])})
+    return rows
+
+
+def _load_fdr_etf_rows() -> list[dict[str, str]]:
+    import FinanceDataReader as fdr
+
+    df = fdr.StockListing("ETF/KR")
+    rows: list[dict[str, str]] = []
+    for _, row in df.iterrows():
+        code = _normalize_code(row["Symbol"])
+        if not code:
+            continue
+        rows.append({"name": str(row["Name"]), "code": code, "market": "ETF"})
+    return rows
+
+
+def _merge_rows(*groups: list[dict[str, str]]) -> list[dict[str, str]]:
+    merged: dict[str, dict[str, str]] = {}
+    for group in groups:
+        for row in group:
+            merged[row["code"]] = row
+    return list(merged.values())
+
+
+def load_listing_rows() -> list[dict[str, str]]:
+    """Load KRX stocks + KR ETFs via FinanceDataReader, fallback to pykrx."""
+    try:
+        rows = _merge_rows(_load_fdr_stock_rows(), _load_fdr_etf_rows())
         if rows:
             return rows
     except Exception as err:
@@ -87,17 +114,26 @@ def load_listing_rows() -> list[dict[str, str]]:
 
 def load_listing_quotes() -> tuple[str, dict[str, dict[str, int | str]]]:
     """Return (trade_date_iso, quotes map) from FinanceDataReader, fallback pykrx."""
+    trade_date = datetime.now().strftime("%Y-%m-%d")
+    quotes: dict[str, dict[str, int | str]] = {}
+
     try:
         import FinanceDataReader as fdr
 
-        df = fdr.StockListing("KRX")
-        trade_date = datetime.now().strftime("%Y-%m-%d")
-        quotes: dict[str, dict[str, int | str]] = {}
-        for _, row in df.iterrows():
-            code = str(row["Code"]).zfill(6)
-            if len(code) != 6 or not code.isdigit():
+        krx = fdr.StockListing("KRX")
+        for _, row in krx.iterrows():
+            code = _normalize_code(row["Code"])
+            if not code:
                 continue
             quotes[code] = {"close": int(row["Close"]), "tradeDate": trade_date}
+
+        etf = fdr.StockListing("ETF/KR")
+        for _, row in etf.iterrows():
+            code = _normalize_code(row["Symbol"])
+            if not code:
+                continue
+            quotes[code] = {"close": int(row["Price"]), "tradeDate": trade_date}
+
         if quotes:
             return trade_date, quotes
     except Exception as err:

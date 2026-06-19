@@ -58,14 +58,21 @@ export function resolveStock(input: string, stocks: StockInfo[]): StockInfo | nu
   const trimmed = input.trim()
   if (!trimmed) return null
 
-  const byCode = stocks.find((s) => s.code === trimmed)
+  const parenCode = trimmed.match(/\((\d{6})\)/)?.[1]
+  if (parenCode) {
+    const byParen = stocks.find((s) => s.code === parenCode)
+    if (byParen) return byParen
+  }
+
+  const byCode = stocks.find((s) => s.code === trimmed || s.code === trimmed.replace(/\D/g, '').slice(-6))
   if (byCode) return byCode
 
-  const lower = trimmed.toLowerCase()
+  const nameOnly = trimmed.replace(/\(\d{6}\)/, '').trim()
+  const lower = nameOnly.toLowerCase()
   const exactName = stocks.find((s) => s.name.toLowerCase() === lower)
   if (exactName) return exactName
 
-  return searchStocks(trimmed, stocks, 1)[0] ?? null
+  return searchStocks(nameOnly || trimmed, stocks, 1)[0] ?? null
 }
 
 function formatDate(d: Date): string {
