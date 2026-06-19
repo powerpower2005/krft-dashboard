@@ -4,6 +4,8 @@ import { usePricePolling } from './hooks/usePricePolling'
 import { usePositions } from './hooks/usePositions'
 import './App.css'
 
+import type { MarketRegion } from './types'
+
 function App() {
   const {
     positions,
@@ -20,9 +22,9 @@ function App() {
 
   usePricePolling(refreshReturns, positions.length > 0)
 
-  const handleAdd = async (nickname: string, stock: string, entryDate: string) => {
+  const handleAdd = async (region: MarketRegion, nickname: string, stock: string, entryDate: string) => {
     try {
-      await addPosition(nickname, stock, entryDate)
+      await addPosition(region, nickname, stock, entryDate)
     } catch {
       // error state set in hook
     }
@@ -31,8 +33,8 @@ function App() {
   return (
     <div className="app">
       <header className="hero">
-        <h1>KR Stock Compare</h1>
-        <p>한국 종목 기준일 종가 대비 수익률을 비교합니다.</p>
+        <h1>KRFT Dashboard</h1>
+        <p>한국·미국 종목 기준일 종가 대비 수익률을 비교합니다.</p>
       </header>
 
       {error && (
@@ -54,7 +56,7 @@ function App() {
       />
 
       <footer className="footer muted">
-        데이터: pykrx / FinanceDataReader (GitHub Actions) · 시세 갱신: quotes.json · 브라우저 localStorage
+        KR: pykrx/FDR · US: FDR (GitHub Actions) · 미국 종목은 Fetch US OHLCV 후 추가 · localStorage
       </footer>
     </div>
   )

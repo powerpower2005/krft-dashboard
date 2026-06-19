@@ -1,3 +1,5 @@
+export type MarketRegion = 'KR' | 'US'
+
 export type StockInfo = {
   name: string
   code: string
@@ -7,10 +9,12 @@ export type StockInfo = {
 export type Position = {
   id: string
   nickname: string
+  region: MarketRegion
   stockName: string
   stockCode: string
   entryDate: string
   entryPrice: number
+  currency: 'KRW' | 'USD'
 }
 
 export type PositionWithReturns = Position & {
@@ -21,3 +25,16 @@ export type PositionWithReturns = Position & {
 }
 
 export const POLL_INTERVAL_MS = 10 * 60 * 1000
+
+export const US_POPULAR: StockInfo[] = [
+  { name: 'VanEck Semiconductor ETF', code: 'SMH', market: 'US-ETF' },
+  { name: 'SPDR S&P 500 ETF', code: 'SPY', market: 'US-ETF' },
+  { name: 'Invesco QQQ Trust', code: 'QQQ', market: 'US-ETF' },
+  { name: 'Apple Inc.', code: 'AAPL', market: 'US' },
+  { name: 'NVIDIA Corporation', code: 'NVDA', market: 'US' },
+  { name: 'Microsoft Corporation', code: 'MSFT', market: 'US' },
+  { name: 'Amazon.com Inc.', code: 'AMZN', market: 'US' },
+  { name: 'Meta Platforms Inc.', code: 'META', market: 'US' },
+  { name: 'Alphabet Inc. Class A', code: 'GOOGL', market: 'US' },
+  { name: 'Tesla Inc.', code: 'TSLA', market: 'US' },
+]

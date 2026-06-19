@@ -8,9 +8,12 @@ type Props = {
   onRefresh: () => void
 }
 
-function formatPrice(n: number | null): string {
+function formatPrice(n: number | null, currency: 'KRW' | 'USD'): string {
   if (n == null) return '—'
-  return n.toLocaleString('ko-KR') + '원'
+  if (currency === 'USD') {
+    return `$${n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+  }
+  return `${n.toLocaleString('ko-KR')}원`
 }
 
 function formatPct(n: number | null): string {
@@ -71,11 +74,14 @@ export function PositionTable({ rows, loading, lastUpdated, onRemove, onRefresh 
                 <td className="nickname">{row.nickname}</td>
                 <td>
                   <div>{row.stockName}</div>
-                  <div className="muted">{row.stockCode}</div>
+                  <div className="muted">
+                    {row.region === 'US' ? 'US · ' : 'KR · '}
+                    {row.stockCode}
+                  </div>
                 </td>
                 <td>{row.entryDate}</td>
-                <td>{formatPrice(row.entryPrice)}</td>
-                <td>{formatPrice(row.currentPrice)}</td>
+                <td>{formatPrice(row.entryPrice, row.currency)}</td>
+                <td>{formatPrice(row.currentPrice, row.currency)}</td>
                 <td className={pctClass(row.returnPct)}>
                   {row.error ? <span className="error-text">{row.error}</span> : formatPct(row.returnPct)}
                 </td>
