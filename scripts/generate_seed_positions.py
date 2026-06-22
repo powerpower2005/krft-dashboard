@@ -8,7 +8,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC = ROOT / "public"
 ENTRY_DATE = "2026-05-07"
-CHO = "ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ"
 
 US_NAMES: dict[str, str] = {
     "SMH": "VanEck Semiconductor ETF",
@@ -59,8 +58,20 @@ ROSTER: list[tuple[str, str, str]] = [
 ]
 
 
-def chosung(text: str) -> str:
-    return "".join(CHO[(ord(c) - 0xAC00) // 588] for c in text if "\uac00" <= c <= "\ud7a3")
+def assign_nicknames(roster: list[tuple[str, str, str]]) -> list[str]:
+    name_counts: dict[str, int] = {}
+    for name, _, _ in roster:
+        name_counts[name] = name_counts.get(name, 0) + 1
+
+    seen: dict[str, int] = {}
+    nicknames: list[str] = []
+    for name, _, _ in roster:
+        if name_counts[name] == 1:
+            nicknames.append(name)
+            continue
+        seen[name] = seen.get(name, 0) + 1
+        nicknames.append(f"{name}{seen[name]}")
+    return nicknames
 
 
 def load_kr_names() -> dict[str, str]:
@@ -75,24 +86,6 @@ def close_on_date(region: str, code: str, date: str) -> float:
     if price is None:
         raise KeyError(f"{region} {code}: no close on {date}")
     return float(price)
-
-
-def assign_nicknames(roster: list[tuple[str, str, str]]) -> list[str]:
-    base_counts: dict[str, int] = {}
-    for name, _, _ in roster:
-        base = chosung(name)
-        base_counts[base] = base_counts.get(base, 0) + 1
-
-    seen: dict[str, int] = {}
-    nicknames: list[str] = []
-    for name, _, _ in roster:
-        base = chosung(name)
-        if base_counts[base] == 1:
-            nicknames.append(base)
-            continue
-        seen[base] = seen.get(base, 0) + 1
-        nicknames.append(f"{base}{seen[base]}")
-    return nicknames
 
 
 def main() -> None:
@@ -116,7 +109,6 @@ def main() -> None:
         positions.append(
             {
                 "nickname": nickname,
-                "displayName": name,
                 "region": region,
                 "stockName": stock_name,
                 "stockCode": code,

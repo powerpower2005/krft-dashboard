@@ -3,8 +3,7 @@
   "entryDate": "2026-05-07",
   "positions": [
     {
-      "nickname": "ㅊㅅㅇ1",
-      "displayName": "차시우",
+      "nickname": "차시우1",
       "region": "KR",
       "stockName": "TIME 글로벌AI인공지능액티브",
       "stockCode": "456600",
@@ -13,8 +12,7 @@
       "currency": "KRW"
     },
     {
-      "nickname": "ㅊㅎㅈ1",
-      "displayName": "최황지",
+      "nickname": "최황지1",
       "region": "KR",
       "stockName": "KODEX 방산TOP10",
       "stockCode": "0080G0",
@@ -23,8 +21,7 @@
       "currency": "KRW"
     },
     {
-      "nickname": "ㅅㅂㅅ1",
-      "displayName": "서범석",
+      "nickname": "서범석1",
       "region": "US",
       "stockName": "VanEck Semiconductor ETF",
       "stockCode": "SMH",
@@ -33,8 +30,7 @@
       "currency": "USD"
     },
     {
-      "nickname": "ㅂㅇㅅ",
-      "displayName": "백은솔",
+      "nickname": "백은솔",
       "region": "US",
       "stockName": "Global X Data Center & Digital Infrastructure ETF",
       "stockCode": "DTCR",
@@ -43,8 +39,7 @@
       "currency": "USD"
     },
     {
-      "nickname": "ㅅㅇㅈ",
-      "displayName": "송영진",
+      "nickname": "송영진",
       "region": "US",
       "stockName": "VanEck Uranium and Nuclear ETF",
       "stockCode": "NLR",
@@ -53,8 +48,7 @@
       "currency": "USD"
     },
     {
-      "nickname": "ㅇㅈㅇ",
-      "displayName": "이지은",
+      "nickname": "이지은",
       "region": "US",
       "stockName": "First Trust NASDAQ Cybersecurity ETF",
       "stockCode": "CIBR",
@@ -63,8 +57,7 @@
       "currency": "USD"
     },
     {
-      "nickname": "ㅈㄷㄱ",
-      "displayName": "조대규",
+      "nickname": "조대규",
       "region": "US",
       "stockName": "Vanguard Energy ETF",
       "stockCode": "VDE",
@@ -73,8 +66,7 @@
       "currency": "USD"
     },
     {
-      "nickname": "ㄱㅈㄱ",
-      "displayName": "김진경",
+      "nickname": "김진경",
       "region": "KR",
       "stockName": "ACE KRX금현물",
       "stockCode": "411060",
@@ -83,8 +75,7 @@
       "currency": "KRW"
     },
     {
-      "nickname": "ㅎㅇㄱ1",
-      "displayName": "홍영근",
+      "nickname": "홍영근1",
       "region": "US",
       "stockName": "iShares Biotechnology ETF",
       "stockCode": "IBB",
@@ -93,8 +84,7 @@
       "currency": "USD"
     },
     {
-      "nickname": "ㅂㅅㅎ1",
-      "displayName": "박승훈",
+      "nickname": "박승훈1",
       "region": "US",
       "stockName": "First Trust NASDAQ Cybersecurity ETF",
       "stockCode": "CIBR",
@@ -103,8 +93,7 @@
       "currency": "USD"
     },
     {
-      "nickname": "ㅎㅊㅇ1",
-      "displayName": "허채윤",
+      "nickname": "허채윤1",
       "region": "KR",
       "stockName": "KODEX 미국AI광통신네트워크",
       "stockCode": "0173Y0",
@@ -113,8 +102,7 @@
       "currency": "KRW"
     },
     {
-      "nickname": "ㅅㅎㅎ",
-      "displayName": "심현희",
+      "nickname": "심현희",
       "region": "KR",
       "stockName": "HANARO Fn K-푸드",
       "stockCode": "438900",
@@ -123,8 +111,7 @@
       "currency": "KRW"
     },
     {
-      "nickname": "ㅇㅅㅎ",
-      "displayName": "임성하",
+      "nickname": "임성하",
       "region": "US",
       "stockName": "Fidelity Wise Origin Bitcoin Fund",
       "stockCode": "FBTC",
@@ -133,8 +120,7 @@
       "currency": "USD"
     },
     {
-      "nickname": "ㅇㅎㄱㄹ",
-      "displayName": "이한가람",
+      "nickname": "이한가람",
       "region": "KR",
       "stockName": "PLUS 고배당주",
       "stockCode": "161510",
@@ -143,8 +129,7 @@
       "currency": "KRW"
     },
     {
-      "nickname": "ㄱㅂㄱ",
-      "displayName": "김부갑",
+      "nickname": "김부갑",
       "region": "KR",
       "stockName": "KODEX 코리아소버린AI",
       "stockCode": "0115E0",
@@ -153,8 +138,7 @@
       "currency": "KRW"
     },
     {
-      "nickname": "ㅇㅅㅇ1",
-      "displayName": "이새얀",
+      "nickname": "이새얀1",
       "region": "KR",
       "stockName": "KODEX 미국금융테크액티브",
       "stockCode": "0028X0",
@@ -163,8 +147,7 @@
       "currency": "KRW"
     },
     {
-      "nickname": "ㅁㅈㅎ1",
-      "displayName": "민지혜",
+      "nickname": "민지혜1",
       "region": "KR",
       "stockName": "KIWOOM 코리아고배당",
       "stockCode": "104530",
@@ -173,8 +156,7 @@
       "currency": "KRW"
     },
     {
-      "nickname": "ㅇㅈㅎ1",
-      "displayName": "유정현",
+      "nickname": "유정현1",
       "region": "KR",
       "stockName": "SOL AI반도체TOP2플러스",
       "stockCode": "0167A0",
@@ -183,8 +165,7 @@
       "currency": "KRW"
     },
     {
-      "nickname": "ㅊㅅㅇ2",
-      "displayName": "차시우",
+      "nickname": "차시우2",
       "region": "KR",
       "stockName": "SK하이닉스",
       "stockCode": "000660",
@@ -193,8 +174,7 @@
       "currency": "KRW"
     },
     {
-      "nickname": "ㅊㅎㅈ2",
-      "displayName": "최황지",
+      "nickname": "최황지2",
       "region": "KR",
       "stockName": "SK하이닉스",
       "stockCode": "000660",
@@ -203,8 +183,7 @@
       "currency": "KRW"
     },
     {
-      "nickname": "ㅇㅅㅇ2",
-      "displayName": "이새얀",
+      "nickname": "이새얀2",
       "region": "KR",
       "stockName": "한화에어로스페이스",
       "stockCode": "012450",
@@ -213,8 +192,7 @@
       "currency": "KRW"
     },
     {
-      "nickname": "ㅎㅇㄱ2",
-      "displayName": "홍영근",
+      "nickname": "홍영근2",
       "region": "KR",
       "stockName": "HD현대일렉트릭",
       "stockCode": "267260",
@@ -223,8 +201,7 @@
       "currency": "KRW"
     },
     {
-      "nickname": "ㅎㅊㅇ2",
-      "displayName": "허채윤",
+      "nickname": "허채윤2",
       "region": "KR",
       "stockName": "삼성전자",
       "stockCode": "005930",
@@ -233,8 +210,7 @@
       "currency": "KRW"
     },
     {
-      "nickname": "ㅁㅈㅎ2",
-      "displayName": "민지혜",
+      "nickname": "민지혜2",
       "region": "KR",
       "stockName": "HD현대중공업",
       "stockCode": "329180",
@@ -243,8 +219,7 @@
       "currency": "KRW"
     },
     {
-      "nickname": "ㄱㅅㅁ",
-      "displayName": "김상민",
+      "nickname": "김상민",
       "region": "KR",
       "stockName": "한미반도체",
       "stockCode": "042700",
@@ -253,8 +228,7 @@
       "currency": "KRW"
     },
     {
-      "nickname": "ㅅㅂㅅ2",
-      "displayName": "서범석",
+      "nickname": "서범석2",
       "region": "KR",
       "stockName": "한화",
       "stockCode": "000880",
@@ -263,8 +237,7 @@
       "currency": "KRW"
     },
     {
-      "nickname": "ㄱㅊㅁ",
-      "displayName": "강창모",
+      "nickname": "강창모",
       "region": "KR",
       "stockName": "SK하이닉스",
       "stockCode": "000660",
@@ -273,8 +246,7 @@
       "currency": "KRW"
     },
     {
-      "nickname": "ㅇㅅㅅ",
-      "displayName": "이상신",
+      "nickname": "이상신",
       "region": "KR",
       "stockName": "삼성전기",
       "stockCode": "009150",
@@ -283,8 +255,7 @@
       "currency": "KRW"
     },
     {
-      "nickname": "ㅇㅌㅎ",
-      "displayName": "임태호",
+      "nickname": "임태호",
       "region": "KR",
       "stockName": "한국전력",
       "stockCode": "015760",
@@ -293,8 +264,7 @@
       "currency": "KRW"
     },
     {
-      "nickname": "ㅂㅎㄱ",
-      "displayName": "박형근",
+      "nickname": "박형근",
       "region": "KR",
       "stockName": "삼성전자",
       "stockCode": "005930",
@@ -303,8 +273,7 @@
       "currency": "KRW"
     },
     {
-      "nickname": "ㅂㅅㅎ2",
-      "displayName": "박승훈",
+      "nickname": "박승훈2",
       "region": "KR",
       "stockName": "크래프톤",
       "stockCode": "259960",
@@ -313,8 +282,7 @@
       "currency": "KRW"
     },
     {
-      "nickname": "ㅇㅈㅎ2",
-      "displayName": "유정현",
+      "nickname": "유정현2",
       "region": "KR",
       "stockName": "SK하이닉스",
       "stockCode": "000660",
