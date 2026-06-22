@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import math
 import re
 import sys
 from datetime import datetime, timedelta
@@ -21,7 +22,29 @@ def die(message: str, code: int = 1) -> None:
 
 def write_json(path: Path, data: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    path.write_text(
+        json.dumps(data, ensure_ascii=False, separators=(",", ":"), allow_nan=False),
+        encoding="utf-8",
+    )
+
+
+def is_valid_close(value: float) -> bool:
+    return math.isfinite(value)
+
+
+def quote_from_local_ohlcv(symbol: str) -> tuple[str, float]:
+    path = US_OHLCV_DIR / f"{symbol}.json"
+    if not path.exists():
+        die(f"No local US OHLCV fallback for {symbol}")
+    data = json.loads(path.read_text(encoding="utf-8"))
+    closes = data.get("closes") or {}
+    if not closes:
+        die(f"Empty local US OHLCV for {symbol}")
+    trade_date = max(closes.keys())
+    close = round(float(closes[trade_date]), 4)
+    if not is_valid_close(close):
+        die(f"Invalid local US OHLCV close for {symbol}")
+    return trade_date, close
 
 
 def normalize_us_symbol(raw: str) -> str | None:
@@ -77,7 +100,11 @@ def fetch_latest_quote(symbol: str) -> tuple[str, float]:
     start = end - timedelta(days=14)
     df = fdr.DataReader(symbol, start.strftime("%Y-%m-%d"), end.strftime("%Y-%m-%d"))
     if df is None or df.empty:
-        die(f"No US quote data for {symbol}")
+        return quote_from_local_ohlcv(symbol)
     last = df.iloc[-1]
     trade_date = df.index[-1].strftime("%Y-%m-%d")
-    return trade_date, round(float(last["Close"]), 4)
+    close = round(float(last["Close"]), 4)
+    if not is_valid_close(close):
+        print(f"Warn: {symbol} FDR close is NaN, using local ohlcv", file=sys.stderr)
+        return quote_from_local_ohlcv(symbol)
+    return trade_date, close
