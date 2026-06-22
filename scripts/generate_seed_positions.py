@@ -7,7 +7,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC = ROOT / "public"
-ENTRY_DATE = "2026-05-07"
+ENTRY_DATE_ETF = "2026-05-07"
+ENTRY_DATE_STOCK = "2026-05-21"
 
 US_NAMES: dict[str, str] = {
     "SMH": "VanEck Semiconductor ETF",
@@ -19,53 +20,53 @@ US_NAMES: dict[str, str] = {
     "FBTC": "Fidelity Wise Origin Bitcoin Fund",
 }
 
-# (display name, region, code)
-ROSTER: list[tuple[str, str, str]] = [
+# (display name, region, code, entry date)
+ROSTER: list[tuple[str, str, str, str]] = [
     # ETF / US batch
-    ("차시우", "KR", "456600"),
-    ("최황지", "KR", "0080G0"),
-    ("서범석", "US", "SMH"),
-    ("백은솔", "US", "DTCR"),
-    ("송영진", "US", "NLR"),
-    ("이지은", "US", "CIBR"),
-    ("조대규", "US", "VDE"),
-    ("김진경", "KR", "411060"),
-    ("홍영근", "US", "IBB"),
-    ("박승훈", "US", "CIBR"),
-    ("허채윤", "KR", "0173Y0"),
-    ("심현희", "KR", "438900"),
-    ("임성하", "US", "FBTC"),
-    ("이한가람", "KR", "161510"),
-    ("김부갑", "KR", "0115E0"),
-    ("이새얀", "KR", "0028X0"),
-    ("민지혜", "KR", "104530"),
-    ("유정현", "KR", "0167A0"),
+    ("차시우", "KR", "456600", ENTRY_DATE_ETF),
+    ("최황지", "KR", "0080G0", ENTRY_DATE_ETF),
+    ("서범석", "US", "SMH", ENTRY_DATE_ETF),
+    ("백은솔", "US", "DTCR", ENTRY_DATE_ETF),
+    ("송영진", "US", "NLR", ENTRY_DATE_ETF),
+    ("이지은", "US", "CIBR", ENTRY_DATE_ETF),
+    ("조대규", "US", "VDE", ENTRY_DATE_ETF),
+    ("김진경", "KR", "411060", ENTRY_DATE_ETF),
+    ("홍영근", "US", "IBB", ENTRY_DATE_ETF),
+    ("박승훈", "US", "CIBR", ENTRY_DATE_ETF),
+    ("허채윤", "KR", "0173Y0", ENTRY_DATE_ETF),
+    ("심현희", "KR", "438900", ENTRY_DATE_ETF),
+    ("임성하", "US", "FBTC", ENTRY_DATE_ETF),
+    ("이한가람", "KR", "161510", ENTRY_DATE_ETF),
+    ("김부갑", "KR", "0115E0", ENTRY_DATE_ETF),
+    ("이새얀", "KR", "0028X0", ENTRY_DATE_ETF),
+    ("민지혜", "KR", "104530", ENTRY_DATE_ETF),
+    ("유정현", "KR", "0167A0", ENTRY_DATE_ETF),
     # KR large-cap batch
-    ("차시우", "KR", "000660"),
-    ("최황지", "KR", "000660"),
-    ("이새얀", "KR", "012450"),
-    ("홍영근", "KR", "267260"),
-    ("허채윤", "KR", "005930"),
-    ("민지혜", "KR", "329180"),
-    ("김상민", "KR", "042700"),
-    ("서범석", "KR", "000880"),
-    ("강창모", "KR", "000660"),
-    ("이상신", "KR", "009150"),
-    ("임태호", "KR", "015760"),
-    ("박형근", "KR", "005930"),
-    ("박승훈", "KR", "259960"),
-    ("유정현", "KR", "000660"),
+    ("차시우", "KR", "000660", ENTRY_DATE_STOCK),
+    ("최황지", "KR", "000660", ENTRY_DATE_STOCK),
+    ("이새얀", "KR", "012450", ENTRY_DATE_STOCK),
+    ("홍영근", "KR", "267260", ENTRY_DATE_STOCK),
+    ("허채윤", "KR", "005930", ENTRY_DATE_STOCK),
+    ("민지혜", "KR", "329180", ENTRY_DATE_STOCK),
+    ("김상민", "KR", "042700", ENTRY_DATE_STOCK),
+    ("서범석", "KR", "000880", ENTRY_DATE_STOCK),
+    ("강창모", "KR", "000660", ENTRY_DATE_STOCK),
+    ("이상신", "KR", "009150", ENTRY_DATE_STOCK),
+    ("임태호", "KR", "015760", ENTRY_DATE_STOCK),
+    ("박형근", "KR", "005930", ENTRY_DATE_STOCK),
+    ("박승훈", "KR", "259960", ENTRY_DATE_STOCK),
+    ("유정현", "KR", "000660", ENTRY_DATE_STOCK),
 ]
 
 
-def assign_nicknames(roster: list[tuple[str, str, str]]) -> list[str]:
+def assign_nicknames(roster: list[tuple[str, str, str, str]]) -> list[str]:
     name_counts: dict[str, int] = {}
-    for name, _, _ in roster:
+    for name, _, _, _ in roster:
         name_counts[name] = name_counts.get(name, 0) + 1
 
     seen: dict[str, int] = {}
     nicknames: list[str] = []
-    for name, _, _ in roster:
+    for name, _, _, _ in roster:
         if name_counts[name] == 1:
             nicknames.append(name)
             continue
@@ -93,7 +94,7 @@ def main() -> None:
     nicknames = assign_nicknames(ROSTER)
     positions = []
 
-    for (name, region, code), nickname in zip(ROSTER, nicknames, strict=True):
+    for (name, region, code, entry_date), nickname in zip(ROSTER, nicknames, strict=True):
         if region == "KR":
             stock_name = kr_names.get(code)
             if not stock_name:
@@ -105,14 +106,14 @@ def main() -> None:
                 raise KeyError(f"US code not mapped: {code}")
             currency = "USD"
 
-        entry_price = close_on_date(region, code, ENTRY_DATE)
+        entry_price = close_on_date(region, code, entry_date)
         positions.append(
             {
                 "nickname": nickname,
                 "region": region,
                 "stockName": stock_name,
                 "stockCode": code,
-                "entryDate": ENTRY_DATE,
+                "entryDate": entry_date,
                 "entryPrice": entry_price,
                 "currency": currency,
             }
@@ -120,7 +121,10 @@ def main() -> None:
 
     out = {
         "version": 1,
-        "entryDate": ENTRY_DATE,
+        "entryDates": {
+            "etf": ENTRY_DATE_ETF,
+            "stock": ENTRY_DATE_STOCK,
+        },
         "positions": positions,
     }
     path = PUBLIC / "seed-positions.json"
